@@ -27,7 +27,7 @@ function getCookie(cookieName) {
     if(cookieStart === -1) return '';
     var cookieEnd = document.cookie.indexOf(';',cookieStart);
     if(cookieEnd === -1) cookieEnd = document.cookie.length;
-    var cookieValue = document.cookie.slice(cookieStart + encodeURIComponent(cookieName).length,cookieEnd);
+    var cookieValue = document.cookie.slice(cookieStart + encodeURIComponent(cookieName).length + 1,cookieEnd);
     return decodeURIComponent(cookieValue);
 }
 
