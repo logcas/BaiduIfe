@@ -1,0 +1,43 @@
+body,h1,h2,h3,h4,h5,h6,p,table,td,th,div,ul,ol,li {
+    margin: 0;
+    padding: 0;
+}
+
+#app {
+    margin: 20px auto;
+    text-align: center;
+}
+
+input {
+    position: relative;
+    width: 200px;
+    height: 20px;
+    border: 1px solid gray;
+}
+
+.input-tips {
+    display: inline-block;
+    position: absolute;
+    width: 200px;
+    border: 1px solid gray;
+    list-style: none;
+    background: rgb(231, 231, 231);
+    display: none;
+    z-index: 10;
+}
+
+.input-tips li {
+    padding: 5px;
+}
+
+.input-tips li:hover {
+    background: gray;
+}
+
+.input-tips li.select {
+    background: gray;
+}
+
+.match {
+    color: red;
+}

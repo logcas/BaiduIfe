@@ -164,6 +164,10 @@ function $(selector) {
 
     if (selectors.length === 0) return null;
 
+    if (selectors.length === 1 && selector === 'body') return document.body;
+
+    if (selector[0] === 'body') selectors = selectors.splice(0,1);
+
     var i = 0,
         len = selectors.length;
 
