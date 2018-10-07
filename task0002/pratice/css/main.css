@@ -1,0 +1,71 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.banner {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    width: 100%;
+    height: 410px;
+    overflow: hidden;
+}
+
+.banner li {
+    position: absolute;
+    cursor: pointer;
+} 
+
+.banner .options {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    text-align: center;
+}
+
+.banner .options .options-item {
+    display: inline-block;
+    margin: 5px;
+    height: 20px;
+    width: 20px;
+    border-radius: 10px;
+    background: #fff;
+    opacity: 0.3;
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+}
+
+.banner .options .options-item.select {
+    opacity: 1;
+}
+
+.slide-to-left {
+    left: 0%;
+    animation: slideleft 1.2s ease-in-out;
+}
+
+.slide-to-right {
+    right: 0%;
+    animation: slideright 1.2s ease-in-out;
+}
+
+@keyframes slideleft {
+    from {
+        left: 100%;
+    }
+    to {
+        left: 0%;
+    }
+}
+
+@keyframes slideright {
+    from {
+        right: 100%;
+    }
+    to {
+        right: 0%;
+    }
+}

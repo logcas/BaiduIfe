@@ -158,6 +158,8 @@ function getPosition(element) {
 
 // 实现一个简单的Query
 function $(selector) {
+    console.log(typeof selector);
+
     var selectors = selector.split(' ');
 
     if (selectors.length === 0) return null;
