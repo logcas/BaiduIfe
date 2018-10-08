@@ -1,0 +1,234 @@
+body,div,ul,ol,table,th,td,tr,h1,h2,h3,h4,h5,h6 {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+}
+
+ul {
+    list-style: none;
+}
+
+html,body {
+    height: 100%;
+    min-width: 800px;
+}
+
+.header {
+    position: relative;
+    height: 10%;
+    color: #9a9a9a;
+    font-size: 20px;
+    background: #dddddd;
+    border-bottom: 1px solid #cecece;
+    box-sizing: border-box;
+}
+
+.header .name {
+    position: relative;
+    display: block;
+    margin-left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.container {
+    margin:0;
+    height: 90%;
+}
+
+.bottom-panel {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 40px;
+    width: 230px;
+    line-height: 40px;
+    background-image: url('../images/add.png');
+    background-repeat: no-repeat;
+    background-position: 15px 10px;
+    border-top: 1px solid #cecece;
+    cursor: pointer;
+}
+
+.bottom-panel span {
+    margin-left: 45px;
+}
+
+.folder-list {
+    display: block;
+    position: relative;
+    float: left;
+    width: 229px;
+    height: 100%;
+    color: #3d3d3d;
+    font-size: 16px;
+    background: #f2f2f2;
+    border-right: 1px solid #cecece;
+}
+
+.folder-list p {
+    padding-left: 10px;
+}
+
+.folder-list .all {
+    margin-top: 25px;
+}
+
+.folder-list .catagory {
+    margin-bottom: 0px;
+}
+
+.folder-list>li {
+    background-image: url(../images/folder.png);
+    background-repeat: no-repeat;
+    background-position: 20px 10px;
+    cursor: pointer;
+}
+
+.folder-list>li .folder-name {
+    position: relative;
+    margin-left: 50px;
+    height: 30px;
+    line-height: 30px;
+}
+
+.folder-list>li .folder-name:hover button {
+    visibility: visible;
+}
+
+.task-list li {
+    padding-left: 60px;
+    height: 30px;
+    line-height: 30px;
+    background-image: url(../images/task.png);
+    background-repeat: no-repeat;
+    background-position: 40px 8px;
+}
+
+.task-list li:hover {
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.todo-list {
+    float: left;
+    position: relative;
+    width: 229px;
+    height: 100%;
+    border-right: 1px solid #cecece;
+    background: #fafbf6;
+}
+
+.todo-list .selection {
+    height: 40px;
+    width: 100%;
+    font-size: 12px;
+    color: #3d3d3d;
+    background: #eeeeee;
+    border-bottom: 1px solid #cecece;
+}
+
+.todo-list .selection li {
+    float: left;
+    margin-left: 15px;
+    margin-top: 10px;
+    height: 20px;
+    width: 45px;
+    text-align: center;
+    line-height: 20px;
+    cursor: pointer;
+}
+
+.todo-list .selection .selected {
+    border-width: 1px;
+    border-style: solid;
+    border-color: #cecece;
+    background: #fff;
+}
+
+.todo-list .time-line {
+    line-height: 30px;
+    background: #fff;
+    cursor: pointer;
+}
+
+.todo-list .time-line>span {
+    display: block;
+    padding-left: 20px;
+    height: 30px;
+    line-height: 30px;
+    background: #fafaee;
+}
+
+.todo-list .time-line li{
+    padding-left: 40px;
+    background: #ffffff;
+}
+
+.todo-list .time-line li.selected {
+    color: #348413;
+}
+
+.todo-list .time-line li:hover {
+    background: #f2f2f2;
+}
+
+.editor {
+    margin-left: 460px;
+    height: 100%;
+}
+
+.editor .editor-header {
+    height: 50px;
+    padding-left: 17px;
+    line-height: 50px;
+    color: #313131;
+    border-bottom: 1px solid #cecece;
+}
+
+.editor .task-title {
+    background: #f2f2f2;
+}
+
+.btn {
+    float: right;
+    margin-top: 10px;
+    margin-right: 20px;
+    height: 25px;
+    width: 25px;
+    border-width: 0;
+    outline: none;
+    cursor: pointer;
+}
+
+.btn.btn-finish {
+    background-image: url(../images/finish.png);
+    background-repeat: no-repeat;
+}
+
+.btn.btn-edit {
+    background-image: url(../images/edit.png);
+    background-repeat: no-repeat;
+}
+
+.btn.btn-delete {
+    margin-top: 10px;
+    margin-right: 17px;
+    width: 12px;
+    height: 12px;
+    background-image: url(../images/delete.png);
+    background-repeat: no-repeat;
+    visibility: hidden;
+}
+
+.editor .task-time {
+    background: #fafaee;
+}
+
+.editor .task-edit {
+    padding: 17px;
+}
