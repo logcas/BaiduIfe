@@ -45,6 +45,7 @@ window.onload = function () {
         if (tips.style.display === 'none') return;
         var i = 0,
             len = tips.children.length;
+        e = window.event || e;
         selectIndex = e.keyCode === 38 ? selectIndex - 1 : selectIndex + 1;
         if (selectIndex >= len) {
             selectIndex = len - 1;
