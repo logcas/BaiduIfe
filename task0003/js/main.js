@@ -1,3 +1,19 @@
+function storeData() {
+    localStorage.setItem('todolist', JSON.stringify(data));
+}
+
+function getData() {
+    return JSON.parse(localStorage.getItem('todolist'));
+}
+
+var data = getData() || [
+    {
+        folder_name: '默认分类',
+        child_folders: []
+    }
+];
+
+/*
 var data = [
     {
         folder_name: '毕业设计',
@@ -102,6 +118,7 @@ var data = [
         ]
     },
 ];
+*/
 
 window.onload = function () {
 
@@ -140,16 +157,19 @@ window.onload = function () {
             folder = document.createElement('li');
             folder_name = document.createElement('div');
             folder_name.className = 'folder-name';
-            folder_name.setAttribute('data-index', i);
             folder_name.appendChild(document.createTextNode(data[i].folder_name));
-            delete_button = document.createElement('button');
-            delete_button.className = 'btn btn-delete';
-            folder_name.appendChild(delete_button);
+            folder_name.setAttribute('data-folder-index', i);
+            if (i !== 0) { // 默认分类无法删除
+                delete_button = document.createElement('button');
+                delete_button.className = 'btn btn-delete';
+                folder_name.appendChild(delete_button);
+            }
             child_folder_list = document.createElement('ul');
             child_folder_list.className = 'task-list';
             for (j = 0; j < data[i].child_folders.length; ++j) {
                 var child_folder = document.createElement('li');
                 child_folder.setAttribute('data-child-index', j);
+                child_folder.setAttribute('data-folder-index', i);
                 child_folder.innerHTML = data[i].child_folders[j].folder_name;
                 child_folder_list.appendChild(child_folder);
             }
@@ -175,15 +195,6 @@ window.onload = function () {
         }
 
         // 添加
-
-        // 如果有条件限制，则过滤
-        if (curSelect) {
-            tasks = tasks.filter(t => {
-                return t.has_done === curSelect - 1;
-            });
-            tasksLen = tasks.length;
-        }
-
         for (i = 0; i < tasksLen; ++i) {
             dates.push(tasks[i].task_date);
         }
@@ -208,6 +219,7 @@ window.onload = function () {
 
         for (i = 0; i < tasksLen; ++i) {
             timeLines.forEach(t => {
+                if (curSelect && tasks[i].has_done != curSelect - 1) return;
                 if (t.getAttribute('data-date') == tasks[i].task_date) {
                     var li = document.createElement('li');
                     li.setAttribute('data-task-index', i);
@@ -246,6 +258,10 @@ window.onload = function () {
                     });
                 }
                 // 检测子分类是否已经存在
+                if (!childFolder) {
+                    initFolder();
+                    return;
+                }
                 exist = false;
                 var p;
                 data.forEach(f => {
@@ -269,7 +285,9 @@ window.onload = function () {
                 }
             }
         } else {
-            curFolder = target.getAttribute('data-index');
+            curFolder = null;
+            curChildFolder = null;
+            curTask = null;
             var ul = target.nextSibling;
             while (ul && ul.nodeType !== 1) {
                 ul = ul.nextSibling;
@@ -282,12 +300,16 @@ window.onload = function () {
     $.delegate('.folder-list', 'button', 'click', e => {
         e = window.event || e;
         var target = e.srcElement || e.target;
+        console.log(target.parentNode);
         if (confirm('确定删除本分类吗？删除后无法恢复')) {
             var parent = target.parentNode;
             while (parent && parent.nodeType === 1 && parent.tagName.toLowerCase() !== 'li') {
                 parent = parent.parentNode;
             }
             if (parent) folders.removeChild(parent);
+            data.splice(target.parentNode.getAttribute('data-folder-index'), 1);
+            initFolder();
+            storeData();
         }
     });
 
@@ -295,10 +317,22 @@ window.onload = function () {
     $.delegate('.folder-list', 'li', 'click', e => {
         e = window.event || e;
         var target = e.srcElement || e.target;
-        var childfolderIndex = target.getAttribute('data-child-index');
+        var childfolderIndex = target.getAttribute('data-child-index'),
+            folderIndex = target.getAttribute('data-folder-index');
         if (childfolderIndex) {
+            curFolder = folderIndex;
             curChildFolder = childfolderIndex;
             initTodoList(curFolder, curChildFolder);
+            curTask = null;
+            // 设置选中状态
+            var lis = document.querySelectorAll('.task-list li');
+            var i = 0,
+                len = lis.length;
+            this.console.log(lis);
+            for (i = 0; i < len; ++i) {
+                lis[i].className = '';
+            }
+            target.className = 'selected';
         }
     })
 
@@ -327,6 +361,7 @@ window.onload = function () {
 
     // 新增任务
     $.on('#add-task', 'click', e => {
+        curTask = null;
         setInputState('write');
         setInputContent('输入你的任务名称', 'YYYY-MM-DD', '在这里输入你的任务内容吧！');
         taskContentInput.focus();
@@ -344,7 +379,9 @@ window.onload = function () {
             } else {
                 var tasksList = data[curFolder].child_folders[curChildFolder].tasks;
                 tasksList.push(content);
+                initTodoList(curFolder, curChildFolder);
             }
+            storeData();
             alert('保存成功！');
         }
     });
@@ -353,6 +390,7 @@ window.onload = function () {
     $.on('.btn-finish', 'click', e => {
         if (curFolder && curChildFolder && curTask) {
             data[curFolder].child_folders[curChildFolder].tasks[curTask].has_done = 1;
+            storeData();
             alert('任务已完成');
         }
     });
@@ -374,7 +412,7 @@ window.onload = function () {
         }
         selections.children[select].className = 'selected';
         curSelect = select;
-        initTodoList(curFolder,curChildFolder);
+        initTodoList(curFolder, curChildFolder);
     });
 
     // 设置编辑框状态：只读，可写

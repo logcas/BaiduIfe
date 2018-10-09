@@ -114,7 +114,7 @@ html,body {
     background-repeat: no-repeat;
     background-position: 40px 8px;}
 
-.task-list li:hover {
+.task-list li:hover,.task-list li.selected {
     background-color: #fff;
     cursor: pointer;
 }
