@@ -1,0 +1,69 @@
+<!DOCTYPE <!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Drag_html5</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+        function drag(e) {
+            e = window.event || e;
+            var target = e.srcElement || e.target;
+            e.dataTransfer.setData('box',target.id);
+        }
+        function drop(e) {
+            e = window.event || e;
+            var target = e.srcElement || e.target;
+            e.preventDefault();
+            var p = e.dataTransfer.getData('box');
+            target.appendChild(document.getElementById(p));
+        }
+        function dropOver(e) {
+            e = window.event || e;
+            e.preventDefault();
+        }
+    </script>
+</head>
+<style>
+    #app {
+        margin: 20px auto;
+        width: 1024px;
+        height: 500px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .container {
+        margin: 0 50px;
+        width: 150px;
+        height: 500px;
+        border: 1px solid #000;
+    }
+
+    .box {
+        width: 150px;
+        height: 50px;
+        background: red;
+        border: 1px solid #000;
+        line-height: 50px;
+        font-size: 20px;
+        text-align: center;
+    }
+</style>
+
+<body>
+    <div id="app">
+        <div class="container" ondrop="drop(event)" ondragover="dropOver(event)">
+            <div id="1" class="box" draggable="true" ondragstart="drag(event)">1</div>
+            <div id="2" class="box" draggable="true" ondragstart="drag(event)">2</div>
+        </div>
+        <div class="container" ondrop="drop(event)" ondragover="dropOver(event)">
+            <div id="3" class="box" draggable="true" ondragstart="drag(event)">3</div>
+            <div id="4" class="box" draggable="true" ondragstart="drag(event)">4</div>
+            <div id="5" class="box" draggable="true" ondragstart="drag(event)">5</div>
+        </div>
+    </div>
+</body>
+
+</html>
